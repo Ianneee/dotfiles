@@ -1,3 +1,5 @@
+let mapleader=","
+
 " https://github.com/junegunn/vim-plug
 " :PlugInstall :PlugClean
 call plug#begin('~/.vim/plugged')
@@ -30,7 +32,6 @@ set encoding=utf-8
 
 " Python syntax
 au BufNewFile,BufRead *.py
-    \ set expandtab |
     \ set autoindent
 
 " Show quotes in JSON files
@@ -48,7 +49,7 @@ let g:sonokai_disable_terminal_colors = 1
 let g:sonokai_better_performance = 1
 colorscheme sonokai
 
-
+" Fix to have full background color with custom theme in terminal
 if &term =~ '256color'
   " disable Background Color Erase (BCE) so that color schemes
   " render properly when inside 256-color tmux and GNU screen.
@@ -56,9 +57,11 @@ if &term =~ '256color'
   set t_ut=
 endif
 
-"Bell sound off
-set belloff=all
+" Location of split window
+set splitbelow splitright
 
+"Bell sound off... stop that sbling sound!
+set belloff=all
 
 "Airline
 let g:airline_powerline_fonts = 1
@@ -73,13 +76,37 @@ augroup python_syntax_extra
   autocmd! Syntax python :syn keyword Keyword self
 augroup END
 
-" Buffer navigation
-nnoremap <C-M-Left> :bp<cr>
-nnoremap <C-M-Right> :bn<cr> 
-nnoremap <C-M-Up> :bd<cr>
+" Vertical split windows
+nnoremap <leader>v :vsp<cr>
+map <leader>e :e .<cr>
 
-" Coc Settings
+" Move into split 
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
+" Add double quotes around word
+nnoremap <leader>" ebi"<esc>ea"<esc>
+
+" Comment current line
+nnoremap <leader>c 0i#<esc>j^
+" Uncomment current line (delete the first char of line)
+nnoremap <leader>dc 0x
+
+" Buffer navigation, map alt button first
+execute "set <M-l>=\el"
+execute "set <M-h>=\eh"
+nnoremap <M-l> :bp<cr>
+nnoremap <M-h> :bn<cr> 
+nnoremap <M-Down> :bd<cr>
+
+" Write temp file in tmp folder intead near the code
+set backupdir=/tmp//
+set directory=/tmp//
+set undodir=/tmp//
+
+" Coc Settings taken from repo
 " TextEdit might fail if hidden is not set.
 set hidden
 
