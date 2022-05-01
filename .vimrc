@@ -38,7 +38,7 @@ au BufNewFile,BufRead *.py
 let g:vim_json_conceal=0
 
 "Theme settings
-set termguicolors  
+set termguicolors
 set t_Co=256
 set background=dark
 
@@ -76,11 +76,15 @@ augroup python_syntax_extra
   autocmd! Syntax python :syn keyword Keyword self
 augroup END
 
+" Highlight 81 char in line
+highlight ColorColumn ctermbg=yellow
+call matchadd('ColorColumn', '\%81v', 100)
+
 " Vertical split windows
 nnoremap <leader>v :vsp<cr>
 map <leader>e :e .<cr>
 
-" Move into split 
+" Move into split
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -98,8 +102,21 @@ nnoremap <leader>dc 0x
 execute "set <M-l>=\el"
 execute "set <M-h>=\eh"
 nnoremap <M-l> :bp<cr>
-nnoremap <M-h> :bn<cr> 
+nnoremap <M-h> :bn<cr>
 nnoremap <M-Down> :bd<cr>
+
+" Whitespace detector
+highlight ExtraWhitespace ctermbg=red
+match ExtraWhitespace /\s\+\%#\@<!$/
+" Highlight whitespace on insert mode
+au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+au InsertLeave * match ExtraWhitespace /\s\+$/
+
+" Find files and tab autocomplete
+set path+=**
+set wildmenu
+nnoremap <leader>fi :find<Space>
+
 
 " Write temp file in tmp folder intead near the code
 set backupdir=/tmp//
@@ -123,6 +140,7 @@ set updatetime=300
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
+
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
