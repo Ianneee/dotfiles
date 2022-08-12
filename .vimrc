@@ -10,6 +10,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'arcticicestudio/nord-vim'
 Plug 'Yggdroot/indentLine'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'lervag/vimtex'
 
 call plug#end()
 
@@ -21,6 +22,9 @@ set number
 set number relativenumber
 
 syntax on
+
+set hlsearch
+set incsearch
 
 " Spaces indentation rules
 set tabstop=4
@@ -36,18 +40,24 @@ au BufNewFile,BufRead *.py
 
 " Show quotes in JSON files
 let g:vim_json_conceal=0
+set conceallevel=0
+
+" Disable vimtex conceal
+let g:vimtex_syntax_conceal_disable = 1
 
 "Theme settings
-set termguicolors
-set t_Co=256
+"set termguicolors
+"set t_Co=256
 set background=dark
 
-highlight Normal ctermbg=NONE
-highlight nonText ctermbg=NONE
 
 let g:sonokai_disable_terminal_colors = 1
 let g:sonokai_better_performance = 1
 colorscheme sonokai
+
+"highlight Normal ctermbg=NONE guibg=NONE
+"highlight nonText ctermbg=NONE
+"hi EndOfBuffer ctermbg=NONE guibg=NONE
 
 " Fix to have full background color with custom theme in terminal
 if &term =~ '256color'
@@ -65,7 +75,7 @@ set belloff=all
 
 "Airline
 let g:airline_powerline_fonts = 1
-let g:airline_theme='base16'
+let g:airline_theme='deus'
 
 " Font and size
 set guifont=Monospace\ 12
@@ -85,10 +95,10 @@ nnoremap <leader>v :vsp<cr>
 map <leader>e :e .<cr>
 
 " Move into split
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+"""nnoremap <C-h> <C-w>h
+"""nnoremap <C-j> <C-w>j
+"""nnoremap <C-k> <C-w>k
+"""nnoremap <C-l> <C-w>l
 
 " Add double quotes around word
 nnoremap <leader>" ebi"<esc>ea"<esc>
