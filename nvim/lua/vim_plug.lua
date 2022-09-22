@@ -7,7 +7,7 @@ vim.call('plug#begin', '~/.local/share/nvim/plugged')
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'jiangmiao/auto-pairs'
+--Plug 'jiangmiao/auto-pairs'
 Plug 'Yggdroot/indentLine'
 Plug 'lervag/vimtex'
 Plug 'sainnhe/sonokai'
@@ -29,6 +29,8 @@ Plug 'SirVer/ultisnips'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
 -- Treesitter
-Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
+--Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
+
+Plug 'windwp/nvim-autopairs'
 
 vim.call('plug#end')

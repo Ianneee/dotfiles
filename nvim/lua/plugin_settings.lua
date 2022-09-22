@@ -9,4 +9,6 @@ vim.g['vimtex_syntax_conceal_disable'] = 1
 require('cmp_conf')
 
 -- Treesitter
-require('treesitter_conf')
+--require('treesitter_conf')
+
+require("nvim-autopairs").setup {}

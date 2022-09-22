@@ -4,7 +4,6 @@ lua require('theme')
 lua require('settings')
 lua require('keybinds')
 lua require('lsp')
-
 syntax on
 
 " Show quotes in JSON files
@@ -35,3 +34,8 @@ augroup END
 set path+=**
 set wildmenu
 nnoremap <leader>fi :find<Space>
+
+" Vimtex settings
+" TODO: move to lua conf
+let g:vimtex_view_general_viewer = 'evince'
+

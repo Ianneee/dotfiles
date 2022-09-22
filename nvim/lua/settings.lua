@@ -13,7 +13,7 @@ vim.opt.fileformat = "unix"
 vim.opt.encoding = "utf-8"
 
 -- Long lines wrapping
-vim.opt.wrap = false
+vim.opt.wrap = true
 
 -- Mute error sound
 vim.opt.belloff = "all"

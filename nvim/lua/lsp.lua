@@ -54,25 +54,25 @@ vim.api.nvim_create_autocmd('User', {
 })
 
 -- Lsp server init
-require'lspconfig'.pyright.setup{}
-
-require'lspconfig'.sumneko_lua.setup {
-  settings = {
-    Lua = {
-      runtime = {
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        -- vim as global variable
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-}
+--require'lspconfig'.pyright.setup{}
+--
+--require'lspconfig'.sumneko_lua.setup {
+--  settings = {
+--    Lua = {
+--      runtime = {
+--        version = 'LuaJIT',
+--      },
+--      diagnostics = {
+--        -- vim as global variable
+--        globals = {'vim'},
+--      },
+--      workspace = {
+--        -- Make the server aware of Neovim runtime files
+--        library = vim.api.nvim_get_runtime_file("", true),
+--      },
+--      telemetry = {
+--        enable = false,
+--      },
+--    },
+--  },
+--}
