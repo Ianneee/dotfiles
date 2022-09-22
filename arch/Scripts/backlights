@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# TODO: sanitize input
+input=$1
+
+actual_bright=$(cat /sys/class/backlight/intel_backlight/brightness)
+# TODO: controllo max luminosità raggiunta
+
+if [ $input == "+" ]; then
+	echo $((actual_bright+20)) > /sys/class/backlight/intel_backlight/brightness
+elif [ $input == "-" ]; then
+	echo $((actual_bright-20)) > /sys/class/backlight/intel_backlight/brightness
+elif [ $input == "off" ]; then
+    echo 0 > /sys/class/backlight/intel_backlight/brightness
+elif [ $input == "max" ]; then
+    echo 852 > /sys/class/backlight/intel_backlight/brightness
+else
+	echo "Errore"
+fi
