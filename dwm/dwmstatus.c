@@ -193,7 +193,7 @@ main(void)
 		return 1;
 	}
 
-	for (;;sleep(60)) {
+	for (;;sleep(15)) {
 		avgs = loadavg();
 		bat = getbattery("/sys/class/power_supply/BAT0");
 //		bat1 = getbattery("/sys/class/power_supply/BAT1");
@@ -204,7 +204,7 @@ main(void)
 //		t1 = gettemperature("/sys/devices/virtual/hwmon/hwmon2", "temp1_input");
 //		t2 = gettemperature("/sys/devices/virtual/hwmon/hwmon4", "temp1_input");
 
-		status = smprintf("[L:%s|B:%s|%s]",
+		status = smprintf("L:%s|B:%s|%s",
 				avgs, bat, tmbln);
 		setstatus(status);
 
