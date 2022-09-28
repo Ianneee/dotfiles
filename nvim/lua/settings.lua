@@ -2,6 +2,11 @@
 vim.wo.number = true
 vim.wo.relativenumber = true
 
+vim.opt.conceallevel = 0
+
+vim.opt.ignorecase = true
+vim.opt.smartindent = true
+
 -- Indentation
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -17,8 +22,6 @@ vim.opt.wrap = true
 
 -- Mute error sound
 vim.opt.belloff = "all"
-
-vim.opt.guifont = "Monospace 12"
 
 -- Windows split positions
 vim.opt.splitbelow = true

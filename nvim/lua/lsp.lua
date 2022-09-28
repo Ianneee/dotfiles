@@ -23,10 +23,13 @@ lspconfig.util.default_config = vim.tbl_deep_extend(
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
         signs = false,
+        virtual_text = false,
     }
 )
 
--- Key binds
+vim.o.updatetime = 250
+vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})]]
+
 vim.api.nvim_create_autocmd('User', {
   pattern = 'LspAttached',
   desc = 'LSP Keybinds',
@@ -54,25 +57,25 @@ vim.api.nvim_create_autocmd('User', {
 })
 
 -- Lsp server init
---require'lspconfig'.pyright.setup{}
---
---require'lspconfig'.sumneko_lua.setup {
---  settings = {
---    Lua = {
---      runtime = {
---        version = 'LuaJIT',
---      },
---      diagnostics = {
---        -- vim as global variable
---        globals = {'vim'},
---      },
---      workspace = {
---        -- Make the server aware of Neovim runtime files
---        library = vim.api.nvim_get_runtime_file("", true),
---      },
---      telemetry = {
---        enable = false,
---      },
---    },
---  },
---}
+require'lspconfig'.pyright.setup{}
+
+require'lspconfig'.sumneko_lua.setup {
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- vim as global variable
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
