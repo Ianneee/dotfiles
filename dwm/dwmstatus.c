@@ -118,10 +118,12 @@ char *
 getbattery(char *base)
 {
 	char *co, status;
-	int descap, remcap;
+    int battery_level;
+//	int descap, remcap;
 
-	descap = -1;
-	remcap = -1;
+//	descap = -1;
+//	remcap = -1;
+    battery_level = 0;
 
 	co = readfile(base, "present");
 	if (co == NULL)
@@ -132,22 +134,26 @@ getbattery(char *base)
 	}
 	free(co);
 
-	co = readfile(base, "charge_full_design");
-	if (co == NULL) {
-		co = readfile(base, "energy_full_design");
-		if (co == NULL)
-			return smprintf("");
-	}
-	sscanf(co, "%d", &descap);
-	free(co);
+//	co = readfile(base, "charge_full_design");
+//	if (co == NULL) {
+//		co = readfile(base, "energy_full_design");
+//		if (co == NULL)
+//			return smprintf("");
+//	}
+//	sscanf(co, "%d", &descap);
+//	free(co);
 
-	co = readfile(base, "charge_now");
-	if (co == NULL) {
-		co = readfile(base, "energy_now");
-		if (co == NULL)
-			return smprintf("");
-	}
-	sscanf(co, "%d", &remcap);
+//	co = readfile(base, "charge_now");
+//	if (co == NULL) {
+//		co = readfile(base, "energy_now");
+//		if (co == NULL)
+//			return smprintf("");
+//	}
+//	scanf(co, "%d", &remcap);
+//	free(co);
+
+	co = readfile(base, "capacity");
+	sscanf(co, "%d", &battery_level);
 	free(co);
 
 	co = readfile(base, "status");
@@ -155,14 +161,17 @@ getbattery(char *base)
 		status = '-';
 	} else if(!strncmp(co, "Charging", 8)) {
 		status = '+';
-	} else {
-		status = '?';
+	} else if(!strncmp(co, "Full", 4)){
+        status = '%';
+    } else {
+		status = '%';
 	}
 
-	if (remcap < 0 || descap < 0)
-		return smprintf("invalid");
+//	if (remcap < 0 || descap < 0)
+//		return smprintf("invalid");
 
-	return smprintf("%.0f%%%c", ((float)remcap / (float)descap) * 100, status);
+	//return smprintf("%.0f%%%c", ((float)remcap / (float)descap) * 100, status);
+	return smprintf("%d%c", battery_level, status);
 }
 
 char *
@@ -193,9 +202,9 @@ main(void)
 		return 1;
 	}
 
-	for (;;sleep(15)) {
+	for (;;sleep(5)) {
 		avgs = loadavg();
-		bat = getbattery("/sys/class/power_supply/BAT0");
+		bat = getbattery("/sys/class/power_supply/BAT1");
 //		bat1 = getbattery("/sys/class/power_supply/BAT1");
 //		tmar = mktimes("%H:%M", tzargentina);
 //		tmutc = mktimes("%H:%M", tzutc);
@@ -204,7 +213,7 @@ main(void)
 //		t1 = gettemperature("/sys/devices/virtual/hwmon/hwmon2", "temp1_input");
 //		t2 = gettemperature("/sys/devices/virtual/hwmon/hwmon4", "temp1_input");
 
-		status = smprintf("L:%s|B:%s|%s",
+		status = smprintf(" %s| %s| %s",
 				avgs, bat, tmbln);
 		setstatus(status);
 
