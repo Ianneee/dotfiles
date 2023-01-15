@@ -17,7 +17,7 @@ if cmp ~= nil then
       -- l'ordine indica la priorità o aggiungere `priority = k`
       { name = 'nvim_lsp', keyword_length = 3 },
       { name = 'path' },
-      { name = 'buffer', keyword_length = 5 },
+      { name = 'buffer', keyword_length = 3 },
       { name = 'nvim_lua' },
       { name = 'ultisnips' },
     },

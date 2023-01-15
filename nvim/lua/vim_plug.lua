@@ -13,6 +13,8 @@ Plug 'lervag/vimtex'
 Plug 'sainnhe/sonokai'
 
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
 
 -- LSP configurations
 Plug 'neovim/nvim-lspconfig'
@@ -32,5 +34,8 @@ Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 --Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 
 Plug 'windwp/nvim-autopairs'
+
+-- EditorConfig
+Plug 'editorconfig/editorconfig-vim'
 
 vim.call('plug#end')

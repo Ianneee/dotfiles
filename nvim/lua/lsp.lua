@@ -3,7 +3,8 @@ local lsp_defaults = {
   flags = {
     debounce_text_changes = 150,
   },
-  capabilities = require('cmp_nvim_lsp').update_capabilities(
+  --capabilities = require('cmp_nvim_lsp').update_capabilities(
+  capabilities = require('cmp_nvim_lsp').default_capabilities(
     vim.lsp.protocol.make_client_capabilities()
   ),
   on_attach = function(client, bufnr)
@@ -28,7 +29,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 )
 
 vim.o.updatetime = 250
-vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})]]
+vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})]])
 
 vim.api.nvim_create_autocmd('User', {
   pattern = 'LspAttached',
@@ -59,23 +60,49 @@ vim.api.nvim_create_autocmd('User', {
 -- Lsp server init
 require'lspconfig'.pyright.setup{}
 
-require'lspconfig'.sumneko_lua.setup {
+--require'lspconfig'.sumneko_lua.setup {
+--  settings = {
+--    Lua = {
+--      runtime = {
+--        version = 'LuaJIT',
+--      },
+--      diagnostics = {
+--        -- vim as global variable
+--        globals = {'vim'},
+--      },
+--      workspace = {
+--        -- Make the server aware of Neovim runtime files
+--        library = vim.api.nvim_get_runtime_file("", true),
+--      },
+--      telemetry = {
+--        enable = false,
+--      },
+--    },
+--  },
+--}
+
+require'lspconfig'.dockerls.setup{ }
+
+require'lspconfig'.ccls.setup {
+  init_options = {
+    compilationDatabaseDirectory = "build";
+    index = {
+      threads = 0;
+    };
+    clang = {
+      excludeArgs = { "-frounding-math"} ;
+    };
+  }
+}
+
+require('lspconfig').yamlls.setup {
   settings = {
-    Lua = {
-      runtime = {
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        -- vim as global variable
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      telemetry = {
-        enable = false,
+    yaml = {
+      schemas = {
+        ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.yaml"] = "/*.openapi.yaml"
       },
     },
-  },
+  }
 }
+
+require'lspconfig'.gopls.setup{}

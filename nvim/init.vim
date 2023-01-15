@@ -8,7 +8,10 @@ syntax on
 
 " Show quotes in JSON files
 let g:vim_json_conceal=0
-set conceallevel=0
+"set conceallevel=0
+
+au BufRead,BufNewFile *.mo set filetype=modelica
+au BufRead,BufNewFile *.tpl set filetype=susan
 
 " Python buffer settings
 augroup fileType_python
@@ -19,12 +22,12 @@ augroup fileType_python
 augroup END
 
 " Highlight 81 char in line
-highlight ColorColumn ctermbg=DarkBlue
+highlight ColorColumn ctermbg=DarkBlue guibg=DarkBlue
 call matchadd('ColorColumn', '\%81v', 100)
 
 augroup extra_white_spaces
   au!
-  highlight ExtraWhitespace ctermbg=red
+  highlight ExtraWhitespace ctermbg=red guibg=red
   match ExtraWhitespace /\s\+\%#\@<!$/
   au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
   au InsertLeave * match ExtraWhitespace /\s\+$/
@@ -39,3 +42,6 @@ nnoremap <leader>fi :find<Space>
 " TODO: move to lua conf
 let g:vimtex_view_general_viewer = 'evince'
 
+let g:python3_host_prog = "/usr/bin/python"
+
+let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
