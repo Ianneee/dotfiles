@@ -1,0 +1,32 @@
+#!/bin/bash
+
+environment=$(find -maxdepth 1 -name venv -type d)
+
+if [ ! -z "$environment" ]; then
+    /bin/bash -c "source venv/bin/activate"
+    exit 0
+fi
+
+environment=$(find -maxdepth 1 -name env -type d)
+if [ ! -z "$environment" ]; then
+    source env/bin/activate
+    exit 0
+fi
+
+environment=$(find -name venv -type d)
+if [ ! -z "$environment" ]; then
+    echo "Found environment at $environment. Change your position."
+fi
+venv=$environment
+
+environment=$(find -name env -type d)
+if [ ! -z "$environment" ]; then
+    echo "Found environment at $environment. Change your position."
+fi
+
+if [ -z "$environment" -a -z "$venv" ]; then
+    echo "Error: No python environment found!"
+    echo "Digit 'python3 -m venv venv' for create a new environment."
+fi
+exit 1
+

@@ -1,0 +1,23 @@
+selected=$(echo -e "Clipboard: Selection\nClipboard: Full screen\nClipboard: Window\n\
+Save:      Selection\nSave:      Full screen\nSave:      Window" | \
+          dmenu -i -p "Select" -l 10)
+
+if [[ $selected == "Clipboard: Selection" ]]; then
+    maim -s | xclip -selection clipboard -t image/png
+
+elif [[ $selected == "Clipboard: Full screen" ]]; then
+    maim | xclip -selection clipboard -t image/png
+
+elif [[ $selected == "Clipboard: Window" ]]; then
+    maim -st 9999999 | xclip -selection clipboard -t image/png
+
+elif [[ $selected == "Save:      Selection" ]]; then
+    maim -s ~/Screenshots/$(date +%Y%m%d_%H%M%S).png
+
+elif [[ $selected == "Save:      Full screen" ]]; then
+    maim ~/Screenshots/$(date +%Y%m%d_%H%M%S).png
+
+elif [[ $selected == "Save:      Window" ]]; then
+    maim -st 9999999 ~/Screenshots/$(date +%Y%m%d_%H%M%S).png
+
+fi
