@@ -7,11 +7,8 @@
 
 xmodmap -e 'keycode 117='
 
-export TERM=xterm-256color
-export PATH="$HOME/.local/bin:$PATH:$HOME/Scripts"
-
 alias ls='ls --color=auto'
-PS1='[\u@\h \W]\$ '
+PS1="\[$(tput bold)\]\[\033[38;5;9m\][\[$(tput sgr0)\]\[\033[38;5;10m\]\w\[$(tput sgr0)\]\[$(tput bold)\]\[\033[38;5;9m\]]\[$(tput sgr0)\]$(tput bold)\[\033[38;5;202m\]\$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')\[$(tput sgr0)\]\[\033[38;5;226m\]\\$\[$(tput sgr0)\] \[$(tput sgr0)\]"
 alias ll='ls -la --color=auto'
 alias cal='cal -m'
 
@@ -25,4 +22,10 @@ alias blue="bluetoothctl power on && bluetoothctl"
 
 alias off="systemctl poweroff"
 alias reboot="systemctl reboot"
+alias pyenv="source venv/bin/activate"
+alias mpiexec="mpiexec --mca opal_warn_on_missing_libcuda 0"
 
+alias icat="kitty +kitten icat"
+
+export _JAVA_AWT_WM_NONREPARENTING=1
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'

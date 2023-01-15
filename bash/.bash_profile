@@ -12,4 +12,9 @@ if [[ ! -f "$SSH_AUTH_SOCK" ]]; then
     source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
 fi
 
-echo -e "\n\tWelcome back Master" && startx
+export EDITOR="/usr/bin/nvim"
+export PATH="$PATH:$HOME/Scripts:/home/ian/.local/bin:/home/ian/node_modules/.bin"
+
+if [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]]; then
+ startx
+fi
