@@ -2,7 +2,7 @@
 vim.wo.number = true
 vim.wo.relativenumber = true
 
-vim.opt.conceallevel = 0
+--vim.opt.conceallevel = 0
 
 vim.opt.ignorecase = true
 vim.opt.smartindent = true
@@ -33,14 +33,18 @@ vim.opt.directory = "/tmp//"
 vim.opt.undodir = "/tmp//"
 
 -- Cl size
-vim.opt.cmdheight = 2
+vim.opt.cmdheight = 1
 
 -- Connection with s.o. clipboard
 vim.opt.clipboard = "unnamedplus"
 
-P = function(value)
-  print(vim.inspect(value))
-end
+-- Netwr settings
+vim.g.netrw_liststyle = 3
+vim.g.netrw_bufsettings = "noma nomod nu nobl nowrap ro"
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "netwr",
+  command = [[lua vim.opt_local = delete]],
+})
 
 -- Lua indentation
 vim.cmd([[

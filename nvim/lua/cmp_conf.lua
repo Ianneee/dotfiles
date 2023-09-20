@@ -16,8 +16,8 @@ if cmp ~= nil then
     sources = {
       -- l'ordine indica la priorità o aggiungere `priority = k`
       { name = 'nvim_lsp', keyword_length = 3 },
-      { name = 'path' },
       { name = 'buffer', keyword_length = 3 },
+      { name = 'path' },
       { name = 'nvim_lua' },
       { name = 'ultisnips' },
     },
@@ -28,7 +28,7 @@ if cmp ~= nil then
 
           local menu_icon = {
             nvim_lsp = '[LSP]',
-            luasnip = '[Snip]',
+            ultisnips = '[Snip]',
             buffer = '[Buf]',
             path = '[Path]',
             latex_symbols = '[LaTeX]',

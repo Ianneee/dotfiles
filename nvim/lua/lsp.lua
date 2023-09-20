@@ -3,13 +3,9 @@ local lsp_defaults = {
   flags = {
     debounce_text_changes = 150,
   },
-  --capabilities = require('cmp_nvim_lsp').update_capabilities(
   capabilities = require('cmp_nvim_lsp').default_capabilities(
     vim.lsp.protocol.make_client_capabilities()
   ),
-  on_attach = function(client, bufnr)
-    vim.api.nvim_exec_autocmds('User', {pattern = 'LspAttached'})
-  end
 }
 
 local lspconfig = require('lspconfig')
@@ -20,7 +16,7 @@ lspconfig.util.default_config = vim.tbl_deep_extend(
   lsp_defaults
 )
 
--- Disable signs
+-- Disable lsp messages over text
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
         signs = false,
@@ -28,16 +24,19 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     }
 )
 
+-- Show diagnostic window when cursor is over error
 vim.o.updatetime = 250
-vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})]])
+vim.api.nvim_create_autocmd('LspAttach', {
+  command = [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})]],
+})
 
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'LspAttached',
+vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP Keybinds',
-  callback = function()
-    local bufmap = function(mode, lhs, rhs)
+
+  callback = function(ev)
+    local bufmap = function(mode, keys, func)
       local opts = {buffer = 0}
-      vim.keymap.set(mode, lhs, rhs, opts)
+      vim.keymap.set(mode, keys, func, opts)
     end
 
     bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
@@ -45,6 +44,8 @@ vim.api.nvim_create_autocmd('User', {
     bufmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
     bufmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
     bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
+    bufmap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>')
+    bufmap({'n', 'v'}, '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>')
 
     bufmap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
     bufmap('n', '<C-h>', '<cmd>lua vim.diagnostic.setloclist()<cr>')
@@ -52,48 +53,35 @@ vim.api.nvim_create_autocmd('User', {
     bufmap('n', '<C-n>', '<cmd>lua vim.diagnostic.goto_next()<cr>')
     -- Jumps to the definition of the type symbol
     --bufmap('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
-    -- Renames all references to the symbol under the cursor
-    --bufmap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
-  end
+    --print(string.format('event fired: %s', vim.inspect(ev)))
+  end,
+})
+
+-- Lsp autoformat file
+vim.api.nvim_create_autocmd('LspAttach', {
+  command = [[lua vim.api.nvim_buf_create_user_command(0, 'Format',
+      function()
+        vim.lsp.buf.format()
+      end, { desc = 'Format current buffer with LSP' })
+    ]]
 })
 
 -- Lsp server init
 require'lspconfig'.pyright.setup{}
 
---require'lspconfig'.sumneko_lua.setup {
---  settings = {
---    Lua = {
---      runtime = {
---        version = 'LuaJIT',
---      },
---      diagnostics = {
---        -- vim as global variable
---        globals = {'vim'},
---      },
---      workspace = {
---        -- Make the server aware of Neovim runtime files
---        library = vim.api.nvim_get_runtime_file("", true),
---      },
---      telemetry = {
---        enable = false,
---      },
---    },
---  },
---}
-
 require'lspconfig'.dockerls.setup{ }
 
-require'lspconfig'.ccls.setup {
-  init_options = {
-    compilationDatabaseDirectory = "build";
-    index = {
-      threads = 0;
-    };
-    clang = {
-      excludeArgs = { "-frounding-math"} ;
-    };
-  }
-}
+--require'lspconfig'.ccls.setup {
+--  init_options = {
+--    compilationDatabaseDirectory = "build";
+--    index = {
+--      threads = 0;
+--    };
+--    clang = {
+--      excludeArgs = { "-frounding-math"} ;
+--    };
+--  }
+--}
 
 require('lspconfig').yamlls.setup {
   settings = {
@@ -106,3 +94,9 @@ require('lspconfig').yamlls.setup {
 }
 
 require'lspconfig'.gopls.setup{}
+
+require'lspconfig'.clangd.setup{}
+
+require'lspconfig'.quick_lint_js.setup{}
+
+require'lspconfig'.vuels.setup{}

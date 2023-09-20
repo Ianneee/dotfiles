@@ -18,7 +18,9 @@ local function close_open_buff()
   if count > 2 then
     vim.api.nvim_command("vs")
   elseif count == 2 then
-    print("Last buffer")
+    print(" > Last buffer")
+  elseif count == 1 then
+    print(" > No buffer to close!")
   end
 
  end

@@ -5,10 +5,11 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin', '~/.local/share/nvim/plugged')
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+--Plug 'vim-airline/vim-airline'
+--Plug 'vim-airline/vim-airline-themes'
 --Plug 'jiangmiao/auto-pairs'
-Plug 'Yggdroot/indentLine'
+--Plug 'Yggdroot/indentLine' -- The repo has archived
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'lervag/vimtex'
 Plug 'sainnhe/sonokai'
 
@@ -31,7 +32,7 @@ Plug 'SirVer/ultisnips'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
 -- Treesitter
---Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
+Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 
 Plug 'windwp/nvim-autopairs'
 

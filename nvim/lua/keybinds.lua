@@ -27,3 +27,5 @@ bind('n', "<C-u>", "<C-u>zz")
 -- Move lines in visual mode
 bind('v', 'J', ":m '>+1<cr>gv=gv")
 bind('v', 'K', ":m '<-2<cr>gv=gv")
+
+bind('n', '<leader>w', '<cmd>%s/\\s\\+$/<cr>', {desc = 'Delete white spaces at end of each line'})

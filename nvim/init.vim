@@ -4,11 +4,13 @@ lua require('theme')
 lua require('settings')
 lua require('keybinds')
 lua require('lsp')
+lua require('status_line')
 syntax on
 
 " Show quotes in JSON files
 let g:vim_json_conceal=0
-"set conceallevel=0
+" set conceallevel=0
+autocmd BufEnter *.* set conceallevel=0
 
 au BufRead,BufNewFile *.mo set filetype=modelica
 au BufRead,BufNewFile *.tpl set filetype=susan
@@ -39,9 +41,7 @@ set wildmenu
 nnoremap <leader>fi :find<Space>
 
 " Vimtex settings
-" TODO: move to lua conf
 let g:vimtex_view_general_viewer = 'evince'
 
 let g:python3_host_prog = "/usr/bin/python"
 
-let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
