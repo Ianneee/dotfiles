@@ -45,3 +45,4 @@ let g:vimtex_view_general_viewer = 'evince'
 
 let g:python3_host_prog = "/usr/bin/python"
 
+autocmd TermOpen * setlocal nonumber
