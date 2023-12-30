@@ -27,6 +27,12 @@ vim.opt.belloff = "all"
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
+-- Popup max lines
+vim.opt.pumheight = 15
+
+-- Popup transparency
+vim.opt.pumblend = 20
+
 -- Write temp file in tmp folder
 vim.opt.backupdir = "/tmp//"
 vim.opt.directory = "/tmp//"

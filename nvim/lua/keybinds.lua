@@ -28,4 +28,11 @@ bind('n', "<C-u>", "<C-u>zz")
 bind('v', 'J', ":m '>+1<cr>gv=gv")
 bind('v', 'K', ":m '<-2<cr>gv=gv")
 
-bind('n', '<leader>w', '<cmd>%s/\\s\\+$/<cr>', {desc = 'Delete white spaces at end of each line'})
+-- Text cleaning
+bind('n', '<leader>w', '<cmd>%s/\\s\\+$/<cr><cmd>nohlsearch<cr>', {desc = 'Delete white spaces at end of each line'})
+
+-- Telescope
+bind('n', '<leader>ff', '<cmd>Telescope find_files<cr>')
+bind('n', '<leader>fg', '<cmd>Telescope live_grep<cr>')
+bind('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
+bind('n', '<leader>fh', '<cmd>Telescope help_tags<cr>')

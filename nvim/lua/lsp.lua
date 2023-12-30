@@ -27,7 +27,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 -- Show diagnostic window when cursor is over error
 vim.o.updatetime = 250
 vim.api.nvim_create_autocmd('LspAttach', {
-  command = [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})]],
+  command = [[autocmd! CursorHold * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})]],
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -100,3 +100,11 @@ require'lspconfig'.clangd.setup{}
 require'lspconfig'.quick_lint_js.setup{}
 
 require'lspconfig'.vuels.setup{}
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+require'lspconfig'.html.setup {
+  capabilities = capabilities,
+  filetypes = { "css", "html", "php" }
+}

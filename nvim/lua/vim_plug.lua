@@ -5,10 +5,6 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin', '~/.local/share/nvim/plugged')
 
---Plug 'vim-airline/vim-airline'
---Plug 'vim-airline/vim-airline-themes'
---Plug 'jiangmiao/auto-pairs'
---Plug 'Yggdroot/indentLine' -- The repo has archived
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'lervag/vimtex'
 Plug 'sainnhe/sonokai'
@@ -16,6 +12,9 @@ Plug 'sainnhe/sonokai'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 -- LSP configurations
 Plug 'neovim/nvim-lspconfig'
@@ -27,9 +26,13 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lua'
 
+-- Lps for java
+Plug "mfussenegger/nvim-jdtls"
+
 -- Snippets
-Plug 'SirVer/ultisnips'
-Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'rafamadriz/friendly-snippets'
 
 -- Treesitter
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
