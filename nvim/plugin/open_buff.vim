@@ -1,4 +1,6 @@
-if exists('g:close_open_buff') | finish | endif
+if exists('g:close_open_buff')
+  finish
+endif
 
 let s:save_cpo = &cpo
 set cpo&vim
@@ -6,7 +8,7 @@ set cpo&vim
 hi def link WhidHeader      Number
 hi def link WhidSubHeader   Identifier
 
-command! CloseOpenBuff lua require'open_buff'.close_open_buff()
+command! CloseOpenBuff lua require'buffer_closer'.close_open_buff()
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

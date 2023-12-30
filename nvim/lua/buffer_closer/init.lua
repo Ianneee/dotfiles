@@ -46,3 +46,6 @@ local function close_open_buff()
   end
 end
 
+return {
+  close_open_buff = close_open_buff
+}
