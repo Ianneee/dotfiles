@@ -1,19 +1,20 @@
 #!/bin/bash
 
 # TODO: sanitize input
+# TODO: take max bright from /sys/class/backlight/amdgpu_bl0/max_brightness
 input=$1
 
-actual_bright=$(cat /sys/class/backlight/intel_backlight/brightness)
+actual_bright=$(cat /sys/class/backlight/amdgpu_bl1/brightness)
 # TODO: controllo max luminosità raggiunta
 
 if [ $input == "+" ]; then
-	echo $((actual_bright+20)) > /sys/class/backlight/intel_backlight/brightness
+	echo $((actual_bright+10)) > /sys/class/backlight/amdgpu_bl1/brightness
 elif [ $input == "-" ]; then
-	echo $((actual_bright-20)) > /sys/class/backlight/intel_backlight/brightness
+	echo $((actual_bright-10)) > /sys/class/backlight/amdgpu_bl1/brightness
 elif [ $input == "off" ]; then
-    echo 0 > /sys/class/backlight/intel_backlight/brightness
+    echo 0 > /sys/class/backlight/amdgpu_bl1/brightness
 elif [ $input == "max" ]; then
-    echo 852 > /sys/class/backlight/intel_backlight/brightness
+    echo 255 > /sys/class/backlight/amdgpu_bl1/brightness
 else
 	echo "Errore"
 fi

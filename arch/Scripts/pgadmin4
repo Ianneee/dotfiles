@@ -1,4 +1,0 @@
-systemctl start postgresql.service
-cd ~ && source pgadmin4/bin/activate
-nohup pgadmin4 2>/dev/null &
-deactivate
