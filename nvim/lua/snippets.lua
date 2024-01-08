@@ -1,6 +1,14 @@
 local bind = vim.keymap.set
 local ls = require("luasnip")
 
+local snip = ls.snippet
+local node = ls.snippet_node
+local text = ls.text_node
+local insert = ls.insert_node
+local func = ls.function_node
+local choice = ls.choice_node
+local dynamicn = ls.dynamic_node
+
 ls.config.set_config({
   history = true,
   updateevents = "TextChanged, TextChangedI",
@@ -25,5 +33,30 @@ bind({"i", "s"}, "<C-k>", function()
 		ls.change_choice(1)
 	end
 end, {silent = true})
+
+ls.add_snippets(nil, {
+  sh = {
+    snip({
+      trig = "shebang-bash",
+      namr = "Shebang bash",
+      dscr = "Shebang for bash",
+    },
+    {
+      text { "#!/bin/bash", ""},
+      insert(0),
+    }),
+
+    snip({
+      trig = "shebang-shell",
+      namr = "Shebang shell",
+      dscr = "Shebang for shell"
+    },
+    {
+      text { "#!/bin/sh", ""},
+      insert(0),
+    }),
+
+  },
+})
 
 require("luasnip.loaders.from_vscode").lazy_load()
