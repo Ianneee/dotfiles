@@ -1,3 +1,4 @@
+" vim.fn.stdpath("data")
 lua require('vim_plug')
 lua require('plugin_settings')
 lua require('theme')
