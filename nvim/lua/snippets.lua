@@ -35,6 +35,15 @@ bind({"i", "s"}, "<C-k>", function()
 end, {silent = true})
 
 ls.add_snippets(nil, {
+  all = {
+    snip({
+      trig = "ternary",
+    },
+    {
+      -- equivalent to "${1:cond} ? ${2:then} : ${3:else}"
+      insert(1, "cond"), text(" ? "), insert(2, "then"), text(" : "), insert(3, "else")
+    }),
+  },
   sh = {
     snip({
       trig = "shebang-bash",
