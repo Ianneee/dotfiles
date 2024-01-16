@@ -1,0 +1,38 @@
+" https://gist.github.com/zchee/9c78f91cc5ad771c1f5d -- intellij action list
+let mapleader=","
+set clipboard+=unnamed
+set relativenumber
+set incsearch
+set hlsearch
+set surround
+set NERDTree
+
+" Open file navigator
+nnoremap <leader>e :NERDTreeToggle<cr>
+
+" Open vertical split
+nnoremap <leader>v :vsp<cr>
+" No hl
+nnoremap <C-l> :nohl<cr>
+
+" Buffer navigation
+nnoremap <A-l> :tabnext<cr>
+nnoremap <A-h> :tabprev<cr>
+nnoremap <A-Down> :bd<cr>
+
+" Center buffer when scroll
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+
+" Move selected lines in visual mode
+vnoremap K :m '<-2<cr>gv=gv
+vnoremap J :m '>+1<cr>gv=gv
+
+" Intellij actions
+nnoremap gn :action GotoNextError<CR>
+nnoremap gp :action GotoPreviousError<CR>
+nnoremap gi :action GotoImplementation<CR>
+nnoremap gd :action GotoDeclaration<CR>
+nnoremap gr :action Replace<CR>
+
+echo 'Loaded'
