@@ -67,10 +67,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- Lsp server init
+
+-- https://pypi.org/project/pyright/
 require'lspconfig'.pyright.setup{}
 
-require'lspconfig'.dockerls.setup{ }
+-- require'lspconfig'.dockerls.setup{ }
 
+-- https://github.com/MaskRay/ccls/wiki
 --require'lspconfig'.ccls.setup {
 --  init_options = {
 --    compilationDatabaseDirectory = "build";
@@ -83,28 +86,41 @@ require'lspconfig'.dockerls.setup{ }
 --  }
 --}
 
-require('lspconfig').yamlls.setup {
-  settings = {
-    yaml = {
-      schemas = {
-        ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.yaml"] = "/*.openapi.yaml"
-      },
-    },
-  }
-}
+-- require('lspconfig').yamlls.setup {
+--   settings = {
+--     yaml = {
+--       schemas = {
+--         ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.yaml"] = "/*.openapi.yaml"
+--       },
+--     },
+--   }
+-- }
 
+-- https://github.com/golang/tools/tree/master/gopls
 require'lspconfig'.gopls.setup{}
 
+-- https://clangd.llvm.org/installation.html
 require'lspconfig'.clangd.setup{}
 
+-- https://quick-lint-js.com/
 require'lspconfig'.quick_lint_js.setup{}
 
-require'lspconfig'.vuels.setup{}
+-- require'lspconfig'.vuels.setup{}
+
+-- npm install -g @angular/language-server
+require'lspconfig'.angularls.setup{}
+
+-- npm install -g typescript typescript-language-server
+require'lspconfig'.tsserver.setup{}
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+-- npm i -g vscode-langservers-extracted
 require'lspconfig'.html.setup {
   capabilities = capabilities,
   filetypes = { "css", "html", "php" }
 }
+
+-- npm i -g vscode-langservers-extracted
+require'lspconfig'.cssls.setup{}

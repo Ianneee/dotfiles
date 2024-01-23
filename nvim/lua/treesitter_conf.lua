@@ -25,4 +25,9 @@ require'nvim-treesitter.configs'.setup {
       node_decremental = '<M-space>',
     },
   },
+
+  -- https://github.com/windwp/nvim-ts-autotag
+  autotag = {
+    enable = true,
+  },
 }

@@ -39,7 +39,9 @@ Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 
 Plug 'windwp/nvim-autopairs'
 
+Plug 'windwp/nvim-ts-autotag'
 -- EditorConfig
 Plug 'editorconfig/editorconfig-vim'
+
 
 vim.call('plug#end')
