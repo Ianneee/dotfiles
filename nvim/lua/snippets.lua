@@ -64,8 +64,30 @@ ls.add_snippets(nil, {
       text { "#!/bin/sh", ""},
       insert(0),
     }),
-
   },
+
+  typescript = ({
+    snip({
+      trig = "cfunction",
+      namr = "Class typed function",
+    },
+    {
+      choice(1, {
+        text(""),
+        text("public "),
+        text("private "),
+      }),
+      insert(2, "function_name"),
+      text("("),
+      insert(3, "parameters"),
+      text("): "),
+      insert(4, "return_type"),
+      text("{"),
+      insert(5),
+      text("}")
+    }),
+
+  })
 })
 
 require("luasnip.loaders.from_vscode").lazy_load()
