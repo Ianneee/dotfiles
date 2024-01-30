@@ -9,6 +9,8 @@ local func = ls.function_node
 local choice = ls.choice_node
 local dynamicn = ls.dynamic_node
 
+local fmt = require('luasnip.extras.fmt').fmt
+
 ls.config.set_config({
   history = true,
   updateevents = "TextChanged, TextChangedI",
@@ -70,22 +72,21 @@ ls.add_snippets(nil, {
     snip({
       trig = "cfunction",
       namr = "Class typed function",
-    },
-    {
-      choice(1, {
-        text(""),
-        text("public "),
-        text("private "),
-      }),
-      insert(2, "function_name"),
-      text("("),
-      insert(3, "parameters"),
-      text("): "),
-      insert(4, "return_type"),
-      text("{"),
-      insert(5),
-      text("}")
-    }),
+      },
+      fmt([[{} {}({}): {}{{{}}}]],
+      {
+        choice(1,
+        {
+          text(""),
+          text("private"),
+          text("public")
+        }),
+        insert(2, "func"),
+        insert(3, "params"),
+        insert(4, "return_type"),
+        insert(5),
+      })
+    ),
 
   })
 })
