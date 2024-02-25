@@ -17,12 +17,30 @@ end
 
 config.automatically_reload_config = true
 
-config.font = wezterm.font 'Source Code Pro'
+-- config.font = wezterm.font 'Source Code Pro'
+
+config.font = wezterm.font_with_fallback {
+  {
+    family = 'Source Code Pro',
+    weight = 'Medium',
+    harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
+  },
+  {
+    family = 'JetBrains Mono',
+    weight = 'Medium',
+    harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
+  },
+  { family = 'Terminus', weight = 'Bold' },
+  'Noto Color Emoji',
+}
+
 config.color_scheme = 'Sonokai (Gogh)'
-config.font_size = 11.5
+config.font_size = 11.0
+
+config.bold_brightens_ansi_colors = false
 
 config.scrollback_lines = 3500
-
+config.text_background_opacity = 1
 wezterm.on('gui-startup', function(cmd)
   local tab, pane, window = mux.spawn_window(cmd or {})
   window:gui_window():maximize()
@@ -32,10 +50,10 @@ config.default_workspace = "home"
 
 config.window_decorations = "RESIZE"
 config.window_padding = {
-  left = 0,
+  left = 3,
   right = 0,
   top = 0,
-  bottom = 0,
+  bottom = 1,
 }
 
 config.tab_bar_at_bottom = true
