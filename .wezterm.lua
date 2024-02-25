@@ -4,6 +4,17 @@ local config = wezterm.config_builder()
 local mux = wezterm.mux
 local act = wezterm.action
 
+
+split_func = function(cmd)
+  local tab, pane, window = mux.spawn_window(cmd or {})
+  -- Create a split occupying the right 1/3 of the screen
+  pane:split { size = 0.3 }
+  -- Create another split in the right of the remaining 2/3
+  -- of the space; the resultant split is in the middle
+  -- 1/3 of the display and has the focus.
+  pane:split { size = 0.5 }
+end
+
 config.automatically_reload_config = true
 
 config.font = wezterm.font 'Source Code Pro'
@@ -58,6 +69,17 @@ config.keys = {
 
   { key = "r",          mods = "LEADER",      action = act.ActivateKeyTable { name = "resize_pane", one_shot = false } },
 
+  { key = "0",
+    mods = "LEADER",
+    action = wezterm.action_callback(function(window, pane, line)
+      local coding_pane = pane:split {
+          direction = 'Top',
+          size = 0.8,
+      }
+      pane:split { size = 0.3 }
+      pane:split { size = 0.5 }
+    end)
+  },
   -- Tab keybindings
   { key = "t",          mods = "LEADER",      action = act.SpawnTab("CurrentPaneDomain") },
   { key = "[",          mods = "LEADER",      action = act.ActivateTabRelative(-1) },
