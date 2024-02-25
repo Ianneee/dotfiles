@@ -3,7 +3,8 @@ local bind = vim.keymap.set
 vim.g.mapleader = ","
 
 bind('n', '<leader>v', '<cmd>vsp<cr><C-w>l', { desc = 'Vertical split' })
-bind('n', '<leader>e', '<cmd>e .<cr><cmd>set relativenumber<cr>', { desc = 'Netrw file manager' })
+--bind('n', '<leader>e', '<cmd>e .<cr><cmd>set relativenumber<cr>', { desc = 'Netrw file manager' })
+bind('n', '<leader>e', '<cmd>Neotree<cr>', { desc = 'Neotree' })
 
 -- Buffer navigation
 bind('n', '<M-l>', '<cmd>bp<cr>', { desc = 'Buffer previous' })
@@ -37,4 +38,6 @@ bind('n', '<leader>fg', '<cmd>Telescope live_grep<cr>')
 bind('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
 bind('n', '<leader>fh', '<cmd>Telescope help_tags<cr>')
 
-bind({'n', 'i'}, '<C-s>', '<cmd>w<cr>', { desc = 'Save with CTRL+s' })
+vim.api.nvim_create_user_command('MyFuncs', require('my_funcs').reopen, { nargs='?'})
+bind('n', '<leader>reo', '<cmd>MyFuncs<cr>')
+-- bind({'n', 'i'}, '<C-w>', '<cmd>w<cr>', { desc = 'Save with CTRL+s' })

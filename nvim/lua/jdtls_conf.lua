@@ -1,0 +1,101 @@
+-- File types that signify a Java project's root directory. This will be
+-- used by eclipse to determine what constitutes a workspace
+--local root_markers = {'gradlew', 'mvnw', 'pom.xml'}
+--local root_dir = require('jdtls.setup').find_root(root_markers)
+--print(root_dir)
+--
+--local workspace_folder = "/home/ian/.local/share/eclipse/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
+--
+--local config = {
+--  cmd = {
+--    'java',
+--    '-Declipse.application=org.eclipse.jdt.ls.core.id1',
+--    '-Dosgi.bundles.defaultStartLevel=4',
+--    '-Declipse.product=org.eclipse.jdt.ls.core.product',
+--    '-Dlog.protocol=true',
+--    '-Dlog.level=ALL',
+--    '-Xmx1g',
+--    '--add-modules=ALL-SYSTEM',
+--    '--add-opens', 'java.base/java.util=ALL-UNNAMED',
+--    '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+--     -- '-jar', '/home/ian/jdtls/plugins/org.eclipse.equinox.launcher.gtk.linux.x86_64_1.2.900.v20240129-1338.jar',
+--    '-jar', '/home/ian/jdtls/plugins/org.eclipse.equinox.launcher_1.6.700.v20231214-2017.jar',
+--    '-configuration', '/home/ian/jdtls/config_linux',
+--    '-data', workspace_folder,
+--  },
+--
+--  -- 💀
+--  -- This is the default if not provided, you can remove it. Or adjust as needed.
+--  -- One dedicated LSP server & client will be started per unique root_dir
+--  root_dir = root_dir,
+--
+--  -- Here you can configure eclipse.jdt.ls specific settings
+--  -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
+--  -- for a list of options
+--  settings = {
+--    java = {
+--      format = {
+--        url = '/home/ian/.local/share/eclipse/eclipse-java-google-style.xml',
+--        profile = 'GoogleStyle',
+--      },
+--    },
+--  },
+--
+--  -- Language server `initializationOptions`
+--  -- You need to extend the `bundles` with paths to jar files
+--  -- if you want to use additional eclipse.jdt.ls plugins.
+--  --
+--  -- See https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
+--  --
+--  -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
+--  init_options = {
+--    bundles = {}
+--  },
+--
+--  signatureHelp = { enabled = true },
+--  contentProvider = { preferred = 'fernflower' },  -- Use fernflower to decompile library code
+--  -- Specify any completion options
+--  completion = {
+--    favoriteStaticMembers = {
+--      "org.hamcrest.MatcherAssert.assertThat",
+--      "org.hamcrest.Matchers.*",
+--      "org.hamcrest.CoreMatchers.*",
+--      "org.junit.jupiter.api.Assertions.*",
+--      "java.util.Objects.requireNonNull",
+--      "java.util.Objects.requireNonNullElse",
+--      "org.mockito.Mockito.*"
+--    },
+--    filteredTypes = {
+--      "com.sun.*",
+--      "io.micrometer.shaded.*",
+--      "java.awt.*",
+--      "jdk.*", "sun.*",
+--    },
+--  },
+--  -- Specify any options for organizing imports
+--  sources = {
+--    organizeImports = {
+--      starThreshold = 9999;
+--      staticStarThreshold = 9999;
+--    },
+--  },
+--  -- How code generation should act
+--  codeGeneration = {
+--    toString = {
+--      template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}"
+--    },
+--    hashCodeEquals = {
+--      useJava7Objects = true,
+--    },
+--    useBlocks = true,
+--  },
+--}
+---- This starts a new client & server,
+---- or attaches to an existing client & server depending on the `root_dir`.
+--require('jdtls').start_or_attach(config)
+
+local config = {
+    cmd = {'/home/ian/jdtls/bin/jdtls'},
+    root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
+}
+require('jdtls').start_or_attach(config)

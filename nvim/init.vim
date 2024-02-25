@@ -6,6 +6,10 @@ lua require('settings')
 lua require('keybinds')
 lua require('lsp')
 lua require('status_line')
+lua require('neotree')
+lua require('my_funcs')
+"lua require('jdtls_conf')
+"lua require('java')
 syntax on
 
 " Show quotes in JSON files

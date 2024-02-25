@@ -54,6 +54,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- Jumps to the definition of the type symbol
     --bufmap('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
     --print(string.format('event fired: %s', vim.inspect(ev)))
+
+    bufmap('n', '<leader>sa', '<cmd>vim.lsp.buf.add_workspace_folder<cr>')
+    bufmap('n', '<leader>sr', '<cmd>vim.lsp.buf.remove_workspace_folder<cr>')
+    bufmap('n', '<leader>sl', function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end)
+
   end,
 })
 
