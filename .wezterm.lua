@@ -1,6 +1,7 @@
 local wezterm = require 'wezterm'
 
 local config = wezterm.config_builder()
+local mux = wezterm.mux
 local act = wezterm.action
 
 config.automatically_reload_config = true
@@ -10,6 +11,11 @@ config.color_scheme = 'Sonokai (Gogh)'
 config.font_size = 11.5
 
 config.scrollback_lines = 3500
+
+wezterm.on('gui-startup', function(cmd)
+  local tab, pane, window = mux.spawn_window(cmd or {})
+  window:gui_window():maximize()
+end)
 
 config.default_workspace = "home"
 
