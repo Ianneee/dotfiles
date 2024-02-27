@@ -90,12 +90,16 @@ config.keys = {
   { key = "0",
     mods = "LEADER",
     action = wezterm.action_callback(function(window, pane, line)
+      local path = pane:get_current_working_dir()
       local coding_pane = pane:split {
           direction = 'Top',
           size = 0.8,
+          cwd = path.file_path,
       }
-      pane:split { size = 0.3 }
-      pane:split { size = 0.5 }
+      local id = pane:pane_id()
+      pane:split { size = 0.3, cwd = path.file_path }
+      pane:split { size = 0.5, cwd = path.file_path }
+      coding_pane:activate()
     end)
   },
   -- Tab keybindings
