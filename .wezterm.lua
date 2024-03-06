@@ -67,7 +67,7 @@ config.inactive_pane_hsb = {
 }
 
 -- Keys
-config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
+config.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
   -- Send C-a when pressing C-a twice
   { key = "a",          mods = "LEADER|CTRL", action = act.SendKey { key = "a", mods = "CTRL" } },
@@ -90,16 +90,21 @@ config.keys = {
   { key = "0",
     mods = "LEADER",
     action = wezterm.action_callback(function(window, pane, line)
-      local path = pane:get_current_working_dir()
-      local coding_pane = pane:split {
-          direction = 'Top',
-          size = 0.8,
-          cwd = path.file_path,
-      }
-      local id = pane:pane_id()
-      pane:split { size = 0.3, cwd = path.file_path }
-      pane:split { size = 0.5, cwd = path.file_path }
-      coding_pane:activate()
+      if wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
+        local path = pane:get_current_working_dir()
+        print(path)
+        local coding_pane = pane:split {
+            direction = 'Top',
+            size = 0.8,
+            cwd = path.file_path,
+        }
+        local id = pane:pane_id()
+        pane:split { size = 0.3, cwd = path.file_path }
+        pane:split { size = 0.5, cwd = path.file_path }
+        coding_pane:activate()
+      else
+        print("Add windows here")
+      end
     end)
   },
   -- Tab keybindings
